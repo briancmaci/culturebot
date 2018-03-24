@@ -1,0 +1,43 @@
+{
+    "text": ":rainbow:AQuA :heart: Aaptiv",
+    "channel": "C061EG9SL",
+    "attachments": [
+        {
+            "fallback": "Marsha P. Johnson and the Stonewall riots",
+            "color": "#2eb886",
+			"thumb_url": "https://upload.wikimedia.org/wikipedia/en/3/3c/A_photo_of_Marsha_P._Johnson.png",
+            "image_url": "https://upload.wikimedia.org/wikipedia/en/3/3c/A_photo_of_Marsha_P._Johnson.png",
+            "pretext": "LGBTQ Vanguard of the Day",
+            "title": "Marsha P. Johnson &amp; the Stonewall uprising",
+            "title_link": "https://en.wikipedia.org/wiki/Marsha_P._Johnson",
+            "text": "Known as an outspoken advocate for gay rights, Johnson was one of the prominent figures in the vanguard of the Stonewall uprising in 1969.",
+            "fields": [
+                {
+                    "title": "Why is this important?",
+                    "value": "The Stonewall riots birthed the importance of LGBTQ pride, now celebrated in parades nation-wide.",
+                    "short": false
+                },
+				{
+                    "title": "Her legacy continues...",
+                    "value": "In 2014 President Barack Obama registered Stonewall Inn as a national landmark.",
+                    "short": false
+                }
+            ],
+			"actions": [
+				{
+					"type": "button",
+					"text": "The Stonewall Inn",
+					"url": "http://www.google.com"
+				},
+				{
+					"type": "button",
+					"text": "Donate to fierce charity",
+					"url": "http://www.google.com"
+				}
+			],
+            "footer": "aquabot",
+            "footer_icon": "https://cdn2.iconfinder.com/data/icons/special-waving-flags/512/LGBT-512.png",
+            "ts": "123456789"
+        }
+    ]
+}

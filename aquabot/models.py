@@ -25,6 +25,17 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
+class AdditionalFact():
+    title = 'Additional Fact title'
+    text = 'Additional fact text'
+    is_long = False
+
+
+class TagButton():
+    title = 'Tag Button title'
+    url = 'http://'
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

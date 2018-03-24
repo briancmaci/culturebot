@@ -1,0 +1,63 @@
+<!DOC{% extends "base.html" %}
+
+{% block content %}
+    <h1>LGBTQ Fact | Post</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.header.label }}<br>
+            {{ form.header(size=64) }}<br>
+            {% for error in form.header.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.thumb_url.label }}<br>
+            {{ form.thumb_url(size=64) }}<br>
+            {% for error in form.thumb_url.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=64) }}<br>
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.title_url.label }}<br>
+            {{ form.title_url(size=64) }}<br>
+            {% for error in form.title_url.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(cols=35, rows=20) }}<br>
+            {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <div data-toggle="fieldset" id="additional-fact-fieldset">
+            {{ form.additional_facts.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#additional-fact-fieldset">+</button>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Text</th>
+                    <th>Spans the row</th>
+                    <th></th>
+                </tr>
+                {% for fact in form.additional_facts %}
+                <tr data-toggle="fieldset-entry">
+                    <td>{{ fact.title }}</td>
+                    <td>{{ fact.text }}</td>
+                    <td>{{ fact.is_long }}</td>
+                    <td><button type="button" data-toggle="fieldset-remove-row" id="additional-fact-{{loop.index0}}-remove">-</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
