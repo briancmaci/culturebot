@@ -13,3 +13,6 @@ ENV/
 
 # pycharm
 .idea/
+
+# working files
+_assets/
