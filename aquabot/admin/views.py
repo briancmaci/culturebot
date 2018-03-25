@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect, url_for
 from . import admin
-from .forms import LoginForm, RegistrationForm
-from ..models import db, User
+from .forms import LoginForm, RegistrationForm, PostFactForm
+from ..models import db, User, AdditionalFact
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 
@@ -44,6 +44,20 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('.login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@admin.route('/post_fact', methods=['GET', 'POST'])
+@login_required
+def post_fact():
+    form = PostFactForm()
+    if form.validate_on_submit():
+        flash('Congratulations you have a valid post!')
+    else:
+        flash('Something is wrong. buuut. I do not know what')
+
+    flash(form.data)
+    return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
+
 
 @admin.route('/logout')
 def logout():
