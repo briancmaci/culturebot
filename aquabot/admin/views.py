@@ -49,11 +49,13 @@ def register():
 @admin.route('/post_fact', methods=['GET', 'POST'])
 @login_required
 def post_fact():
-    additional_fact = AdditionalFact()
-    form = PostFactForm(additional_facts=[additional_fact])
+    form = PostFactForm()
     if form.validate_on_submit():
         flash('Congratulations you have a valid post!')
-        flash(form.data)
+    else:
+        flash('Something is wrong. buuut. I do not know what')
+
+    flash(form.data)
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
 
 

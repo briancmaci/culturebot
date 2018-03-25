@@ -6,35 +6,35 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.header.label }}<br>
-            {{ form.header(size=64) }}<br>
+            {{ form.header(size=48) }}<br>
             {% for error in form.header.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.thumb_url.label }}<br>
-            {{ form.thumb_url(size=64) }}<br>
+            {{ form.thumb_url(size=48) }}<br>
             {% for error in form.thumb_url.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.title.label }}<br>
-            {{ form.title(size=64) }}<br>
+            {{ form.title(size=48) }}<br>
             {% for error in form.title.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.title_url.label }}<br>
-            {{ form.title_url(size=64) }}<br>
+            {{ form.title_url(size=48) }}<br>
             {% for error in form.title_url.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.description.label }}<br>
-            {{ form.description(cols=35, rows=20) }}<br>
+            {{ form.description(cols=48, rows=4) }}<br>
             {% for error in form.description.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
@@ -58,6 +58,27 @@
                 {% endfor %}
             </table>
         </div>
+        <div data-toggle="fieldset" id="tag-button-fieldset">
+            {{ form.tag_buttons.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#tag-button-fieldset">+</button>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Url</th>
+                    <th></th>
+                </tr>
+                {% for tag in form.tag_buttons %}
+                <tr data-toggle="fieldset-entry">
+                    <td>{{ tag.title }}</td>
+                    <td>{{ tag.url }}</td>
+                    <td><button type="button" data-toggle="fieldset-remove-row" id="tag-button-{{loop.index0}}-remove">-</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
         <p>{{ form.submit() }}</p>
     </form>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="{{ url_for('.static', filename='js/page.js') }}"></script>
+
 {% endblock %}
