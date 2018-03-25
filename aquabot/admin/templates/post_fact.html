@@ -12,9 +12,9 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.thumb_url.label }}<br>
-            {{ form.thumb_url(size=48) }}<br>
-            {% for error in form.thumb_url.errors %}
+            {{ form.image_url.label }}<br>
+            {{ form.image_url(size=48) }}<br>
+            {% for error in form.image_url.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
@@ -33,14 +33,15 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.description.label }}<br>
-            {{ form.description(cols=48, rows=4) }}<br>
-            {% for error in form.description.errors %}
+            {{ form.body.label }}<br>
+            {{ form.body(cols=48, rows=4) }}<br>
+            {% for error in form.body.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <div data-toggle="fieldset" id="additional-fact-fieldset">
             {{ form.additional_facts.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#additional-fact-fieldset">+</button>
+            {{ form.hidden_tag() }}
             <table>
                 <tr>
                     <th>Title</th>
@@ -60,6 +61,7 @@
         </div>
         <div data-toggle="fieldset" id="tag-button-fieldset">
             {{ form.tag_buttons.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#tag-button-fieldset">+</button>
+            {{ form.hidden_tag() }}
             <table>
                 <tr>
                     <th>Title</th>

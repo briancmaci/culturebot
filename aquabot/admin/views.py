@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect, url_for
 from . import admin
 from .forms import LoginForm, RegistrationForm, PostFactForm
-from ..models import db, User, AdditionalFact
+from ..models import db, User, Post, AdditionalFact, TagButton
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 
@@ -36,7 +36,7 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('.index'))
     form = RegistrationForm()
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
@@ -50,10 +50,38 @@ def register():
 @login_required
 def post_fact():
     form = PostFactForm()
+
     if form.validate_on_submit():
+        post = Post(user_id=current_user.id)
+        post.header = form.header.data
+        post.title = form.title.data
+        post.title_url = form.title_url.data
+        post.image_url = form.image_url.data
+        post.body = form.body.data
+        db.session.add(post)
+        db.session.flush()
+
+        for fact in form.additional_facts.data:
+            additionalFact = AdditionalFact(post_id=post.id)
+            additionalFact.title = fact["title"]
+            additionalFact.text = fact["text"]
+            additionalFact.is_long = fact["is_long"]
+            db.session.add(additionalFact)
+
+        for tag in form.tag_buttons.data:
+            tagButton = TagButton(post_id=post.id)
+            tagButton.title = tag["title"]
+            tagButton.url = tag["url"]
+            db.session.add(tagButton)
+
+
+        db.session.commit()
+        flash(post)
         flash('Congratulations you have a valid post!')
+
     else:
         flash('Something is wrong. buuut. I do not know what')
+        flash(form.errors)
 
     flash(form.data)
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
