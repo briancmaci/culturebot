@@ -5,7 +5,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     DEBUG = False
     TESTING = False
-    CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = False
     SECRET_KEY = 'secret-key-to-come'
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False

@@ -42,10 +42,10 @@ class TagButtonEntryForm(Form):
 
 class PostFactForm(FlaskForm):
     header = StringField('Header', validators=[DataRequired()])
-    thumb_url = StringField('Thumb Url', validators=[URL(require_tld=False, message="Invalid Image Url")])
+    image_url = StringField('Image Url', validators=[URL(require_tld=False, message="Invalid Image Url")])
     title = StringField('Main Title', validators=[DataRequired()])
     title_url = StringField('Main Title Url', validators=[URL(require_tld=False, message="Invalid Url")])
-    description = TextAreaField('Main Description', validators=[DataRequired()])
+    body = TextAreaField('Body', validators=[DataRequired()])
     additional_facts = FieldList(FormField(AdditionalFactEntryForm), min_entries=1)
     tag_buttons = FieldList(FormField(TagButtonEntryForm), min_entries=1)
     submit = SubmitField('Post LGBTQ Fact')
