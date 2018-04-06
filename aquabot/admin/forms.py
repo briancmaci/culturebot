@@ -51,6 +51,3 @@ class PostFactForm(FlaskForm):
     submit = SubmitField('Post LGBTQ Fact')
 
 
-
-
-

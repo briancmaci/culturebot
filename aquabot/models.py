@@ -45,9 +45,17 @@ class Post(db.Model):
 class AdditionalFact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
-    body = db.Column(db.String(140))
+    text = db.Column(db.String(140))
     is_long = db.Column(db.Boolean)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+    def serialize(self):
+        return {
+            'id' : self.id,
+            'title' : self.title,
+            'text' : self.text,
+            'is_long' : self.is_long
+        }
 
 
 class TagButton(db.Model):
@@ -56,6 +64,12 @@ class TagButton(db.Model):
     url = db.Column(db.String(140))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
+    def serialize(self):
+        return {
+            'id' : self.id,
+            'title' : self.title,
+            'url' : self.url
+        }
 
 @login.user_loader
 def load_user(id):
