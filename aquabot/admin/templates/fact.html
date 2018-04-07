@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<form>
+<input type="button" value="Edit" onclick="window.location.href='./edit/{{ fact.id }}'" />
+</form>
+
 <h1>{{ fact.header }}</h1>
     <div>
         <table>
