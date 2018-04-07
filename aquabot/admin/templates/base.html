@@ -2,17 +2,22 @@
 <html>
     <head>
       {% if title %}
-      <title>aquabot|admin - {{ title }}</title>
+      <title> {{title}} </title>
       {% else %}
-      <title>aquabot. haaay.</title>
+      <title>🌈 aquabot</title>
       {% endif %}
     </head>
     <body>
         <div>
-            aquabot | admin:
-            <a href="{{ url_for('.index') }}">Home</a>
+            {% if current_user.username %}
+            🌈 aquabot admin | {{ current_user.username }}:
+            {% else %}
+            🌈 aquabot admin:
+            {% endif %}
+            <a href="{{ url_for('.index') }}">Home</a> &bull;
+            <a href="{{ url_for('.facts') }}">LGBTQ Facts</a> &bull;
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('.login') }}">Login</a>
+            <a href="{{ url_for('.login') }}">Login</a> &bull;
             {% else %}
             <a href="{{ url_for('.logout') }}">Logout</a>
             {% endif %}
