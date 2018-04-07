@@ -10,7 +10,23 @@ from werkzeug.urls import url_parse
 @admin.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title="aquabot")
+    return render_template('index.html', title="🌈 aquabot")
+
+
+@admin.route('/fact/<fact_id>')
+@login_required
+def preview_fact(fact_id):
+    fact = Post.query.filter_by(id=fact_id).first()
+    if fact is None:
+        flash('Fact not found')
+    return render_template('fact.html', fact=fact)
+
+
+@admin.route('/facts')
+@login_required
+def facts():
+    facts = Post.query.all()
+    return render_template('facts.html', title="🌈 aquabot | LGBTQ Pride Facts", facts=facts)
 
 
 @admin.route('/login', methods=['GET', 'POST'])
