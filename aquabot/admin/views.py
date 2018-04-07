@@ -33,6 +33,51 @@ def delete_fact(fact_id):
     return redirect(url_for('.facts'))
 
 
+@admin.route('/fact/edit/<fact_id>', methods=['GET', 'POST'])
+@login_required
+def edit_fact(fact_id):
+    fact = Post.query.filter_by(id=fact_id).first()
+    if fact is None:
+        flash('Fact not found')
+
+    form = PostFactForm(obj=fact)
+    form.populate_obj(fact)
+
+    if form.validate_on_submit():
+        fact.header = form.header.data
+        fact.title = form.title.data
+        fact.title_url = form.title_url.data
+        fact.image_url = form.image_url.data
+        fact.body = form.body.data
+
+        additional_facts = AdditionalFact.query.filter_by(post_id=fact.id).all()
+
+        # Find matches, update. Delete missing. Add new.
+
+        # for af in form.additional_facts.data:
+        #     additionalFact = AdditionalFact(post_id=post.id)
+        #     additionalFact.title = fact["title"]
+        #     additionalFact.text = fact["text"]
+        #     additionalFact.is_long = fact["is_long"]
+        #     db.session.add(additionalFact)
+        #
+        # for tag in form.tag_buttons.data:
+        #     tagButton = TagButton(post_id=post.id)
+        #     tagButton.title = tag["title"]
+        #     tagButton.url = tag["url"]
+        #     db.session.add(tagButton)
+
+        db.session.commit()
+        return redirect(url_for('.preview_fact', fact_id=fact.id))
+
+    else:
+        flash('Could not update fact. Try again?')
+        flash(form.errors)
+
+    flash(form.data)
+    return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
+
+
 @admin.route('/facts')
 @login_required
 def facts():
