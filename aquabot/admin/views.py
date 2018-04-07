@@ -22,6 +22,17 @@ def preview_fact(fact_id):
     return render_template('fact.html', fact=fact)
 
 
+@admin.route('/fact/delete/<fact_id>')
+@login_required
+def delete_fact(fact_id):
+    fact = Post.query.filter_by(id=fact_id).first()
+    if fact is None:
+        flash('Fact not found')
+    db.session.delete(fact)
+    db.session.commit()
+    return redirect(url_for('.facts'))
+
+
 @admin.route('/facts')
 @login_required
 def facts():
