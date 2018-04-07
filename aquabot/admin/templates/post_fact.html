@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>LGBTQ Fact | Post</h1>
-    <form action="" method="post">
+    <form id="post-fact-form" action="" method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.header.label }}<br>
@@ -82,5 +82,15 @@
 
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="{{ url_for('.static', filename='js/page.js') }}"></script>
+
+    <script>
+        $("#post-fact-form").on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13 && !$(document.activeElement).is('textarea')) {
+              e.preventDefault();
+              return false;
+            }
+        });
+    </script>
 
 {% endblock %}
