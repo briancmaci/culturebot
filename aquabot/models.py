@@ -37,10 +37,9 @@ class Post(db.Model):
     additional_facts = db.relationship('AdditionalFact', backref='author', lazy='dynamic')
     tag_buttons = db.relationship('TagButton', backref='author', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    shown = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<Post {}>'.format(self.title)
+        return '<Post {}>'.format(self.body)
 
 
 class AdditionalFact(db.Model):
