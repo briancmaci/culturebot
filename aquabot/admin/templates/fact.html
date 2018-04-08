@@ -6,36 +6,31 @@
 <input type="button" value="Edit" onclick="window.location.href='./edit/{{ fact.id }}'" />
 </form>
 
-<h1>{{ fact.header }}</h1>
-    <div>
-        <table>
-            <tr>
-                <td colspan="2"><strong><h2><a href="{{ fact.title_url }}">{{ fact.title }}</a></h2></strong></td>
-            </tr>
-            <tr>
-                <td width="33%"><img src="{{ fact.image_url }}" width="100%" /></td>
-                <td>{{ fact.body }}</td>
-            </tr>
-            <tr><td colspan="2" height="10"> </td></tr>
-            <tr><td colspan="2"><h3>Additional Facts:</h3></td></tr>
-            {% for additional_fact in fact.additional_facts %}
-            <tr>
-                <td colspan="2"><strong>{{ additional_fact.title }}</strong></td>
-            </tr>
-            <tr>
-                <td>{{ additional_fact.text }}</td>
-                <td>Is long: {{ additional_fact.is_long }}</td>
-            </tr>
-            <tr><td colspan="2" height="20"> </td></tr>
-            {% endfor %}
-            <tr><td colspan="2"><h3>Tag Buttons:</h3></td></tr>
-            {% for tag in fact.tag_buttons %}
-            <tr>
-                <td colspan="2"><strong><a href="{{ tag.url }}">{{ tag.title }}</a></strong></td>
-            </tr>
-            <tr><td colspan="2" height="20"> </td></tr>
-            {% endfor %}
-        </table>
-    </div>
+<div class="wrapper">
+
+	<div class="middle">
+
+		<div class="container">
+			<main class="content">
+				<div>{{ fact.header }}</div>
+                <div><strong><h2><a href="{{ fact.title_url }}">{{ fact.title }}</a></h2></strong></div>
+                <div>{{ fact.body }}</div>
+                {% for additional_fact in fact.additional_facts %}
+                <div><strong>{{ additional_fact.title }}</strong></div>
+                <div>{{ additional_fact.text }}</div>
+                {% endfor %}
+                <div><img src="{{ fact.image_url }}" width="260px" /></div>
+                {% for tag in fact.tag_buttons %}
+                <div><strong><a href="{{ tag.url }}">{{ tag.title }}</a></div>
+                {% endfor %}
+			</main><!-- .content -->
+		</div><!-- .container-->
+
+		<aside class="left-sidebar">
+			&nbsp;
+        </aside><!-- .left-sidebar -->
+
+	</div><!-- .middle-->
+</div><!-- .wrapper -->
 
 {% endblock %}
