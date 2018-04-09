@@ -2,35 +2,37 @@
 
 {% block content %}
 
-<form>
-<input type="button" value="Edit" onclick="window.location.href='./edit/{{ fact.id }}'" />
-</form>
-
 <div class="wrapper">
-
+    <form>
+        <input type="button" value="Edit" onclick="window.location.href='./edit/{{ fact.id }}'" />
+    </form>
+    <div class="slack-header">{{ fact.header }}</div>
 	<div class="middle">
 
 		<div class="container">
 			<main class="content">
-				<div>{{ fact.header }}</div>
-                <div><strong><h2><a href="{{ fact.title_url }}">{{ fact.title }}</a></h2></strong></div>
+                <div class="text-bold"><a href="{{ fact.title_url }}">{{ fact.title }}</a></div>
                 <div>{{ fact.body }}</div>
+                <div>&nbsp;</div>
                 {% for additional_fact in fact.additional_facts %}
-                <div><strong>{{ additional_fact.title }}</strong></div>
+                <div class="text-bold">{{ additional_fact.title }}</div>
                 <div>{{ additional_fact.text }}</div>
+                <div>&nbsp;</div>
                 {% endfor %}
                 <div><img src="{{ fact.image_url }}" width="260px" /></div>
                 {% for tag in fact.tag_buttons %}
-                <div><strong><a href="{{ tag.url }}">{{ tag.title }}</a></div>
+                <button><a class="tag-button" href="{{ tag.url }}" target="_blank">{{ tag.title }}</a></button>
                 {% endfor %}
 			</main><!-- .content -->
 		</div><!-- .container-->
 
 		<aside class="left-sidebar">
-			&nbsp;
         </aside><!-- .left-sidebar -->
 
 	</div><!-- .middle-->
+
+    <footer class="footer">
+    </footer><!-- .footer -->
 </div><!-- .wrapper -->
 
 {% endblock %}

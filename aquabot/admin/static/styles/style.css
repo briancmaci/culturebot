@@ -41,19 +41,21 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+	margin: 10px;
 }
+
 /* End of Eric Meyer's CSS Reset */
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
 	display: block;
 }
 body {
-	font: 12px/18px Arial, sans-serif;
+	font: 15px/18px Gill Sans, Gill Sans MT, Calibri, sans-serif;
 	width: 100%;
 }
 
 .wrapper {
-	width: 460px;
+	width: 600px;
 	margin: 0 auto;
 }
 
@@ -61,9 +63,10 @@ body {
 /* Middle
 -----------------------------------------------------------------------------*/
 .middle {
-	border-left: 10px solid #2eb886;
+    border-left: 4px solid #2eb886;
 	position: relative;
 }
+
 .middle:after {
 	display: table;
 	clear: both;
@@ -76,7 +79,8 @@ body {
 	margin-right: -100%;
 }
 .content {
-	padding: 0 20px;
+	padding: 0 10px;
+	line-height: 22px;
 }
 
 
@@ -84,8 +88,69 @@ body {
 -----------------------------------------------------------------------------*/
 .left-sidebar {
 	float: left;
-	width: 20px;
+	width: 4px;
 	position: relative;
 	background: #2eb886;
-	left: -20px;
+	left: -8px;
+}
+
+/* Footer
+-----------------------------------------------------------------------------*/
+.footer {
+	height: 100px;
+}
+
+/* Text Styles
+-----------------------------------------------------------------------------*/
+a:link {
+    color:#0576b9;
+    text-decoration:none;
+}
+
+a:visited {
+    color:#0576b9;
+    text-decoration:none;
+}
+
+a:active {
+    color:#0576b9;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#0576b9;
+    text-decoration:underline;
+}
+
+a.tag-button:link {
+    color:#2c2d30;
+    text-decoration:none;
+    font-weight:600;
+}
+
+a.tag-button:visited {
+    color:#2c2d30;
+    text-decoration:none;
+    font-weight:600;
+}
+
+a.tag-button:active {
+    color:#2c2d30;
+    text-decoration:none;
+    font-weight:600;
+}
+
+a.tag-button:hover {
+    color:#2c2d30;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.text-bold {
+    font-weight:600;
+}
+
+.slack-header {
+    line-height:36px;
+    height:40px;
 }
