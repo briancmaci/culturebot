@@ -1,10 +1,12 @@
 FROM python:3.6.4-slim-stretch
 
-ADD run_aquabot.py /
-COPY requirements.txt /
+RUN mkdir /app
+WORKDIR /app
 
+COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
-ADD . /aquabot
+COPY . /app
+COPY run_aquabot.py /app
 
 CMD [ "python", "./run_aquabot.py" ]
