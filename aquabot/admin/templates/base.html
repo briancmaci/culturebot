@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('.static', filename='styles/style.css') }}">
       {% if title %}
       <title> {{title}} </title>
       {% else %}
@@ -8,7 +9,7 @@
       {% endif %}
     </head>
     <body>
-        <div>
+        <div style="height:10px; padding: 1% 0; margin-left:40px">
             {% if current_user.username %}
             🌈 aquabot admin | {{ current_user.username }}:
             {% else %}

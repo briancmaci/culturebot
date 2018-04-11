@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <div>
-        <table>
-            {% for fact in facts %}
-            <tr>
-                <td width="80%">{{ fact.title }}</td>
-                <td>{{ fact.shown }}</td>
-                <td><a href="./fact/{{ fact.id }}">Preview</a></td>
-                <td><a href="./fact/edit/{{ fact.id }}">Edit</a></td>
-                <td><a href="./fact/delete/{{ fact.id }}">Delete</a></td>
-            </tr>
-            {% endfor %}
-        </table>
+<div class="wrapper">
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <div>
+            <table>
+                {% for fact in facts %}
+                <tr>
+                    <td width="65%" class="text-bold">{{ fact.title }}</td>
+                    <td>{{ fact.shown }}</td>
+                    <td>
+                        <button><a href="./fact/{{ fact.id }}" class="tag-button">Preview</a></button>
+                        <button><a href="./fact/edit/{{ fact.id }}" class="tag-button">Edit</a></button>
+                        <button><a href="./fact/delete/{{ fact.id }}" class="tag-button">Delete</a></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-
+</div>
 {% endblock %}

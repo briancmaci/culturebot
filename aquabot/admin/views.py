@@ -59,7 +59,6 @@ def edit_fact(fact_id):
 
     form = PostFactForm(obj=fact)
     form.submit.label.text = "Save changes"
-    # form.populate_obj(fact)
 
     if form.validate_on_submit():
         fact.header = form.header.data
@@ -115,10 +114,8 @@ def edit_fact(fact_id):
         return redirect(url_for('.preview_fact', fact_id=fact.id))
 
     else:
-        flash('Could not update fact. Try again?')
         flash(form.errors)
 
-    flash(form.data)
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
 
 @admin.route('/facts')
@@ -191,14 +188,10 @@ def post_fact():
 
 
         db.session.commit()
-        flash(post)
-        flash('Congratulations you have a valid post!')
 
     else:
-        flash('Something is wrong. buuut. I do not know what')
         flash(form.errors)
 
-    flash(form.data)
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
 
 
