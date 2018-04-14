@@ -4,13 +4,15 @@ from .forms import LoginForm, RegistrationForm, PostFactForm
 from ..models import db, User, Post, AdditionalFact, TagButton
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
+import time
+import giphy_client
+from giphy_client.rest import ApiException
+from pprint import pprint
 
 
 def find_additional_fact_index(original_fact=AdditionalFact, updated_facts=[AdditionalFact]):
     found_fact_index = -1
-    print("UPDATED FACTS? ", updated_facts)
     for i, uf in enumerate(updated_facts):
-        print("UF ID", uf["id"], "OF ID", original_fact.id, "i", i)
         if uf["id"] == original_fact.id:
             found_fact_index = i
     return found_fact_index
@@ -27,7 +29,20 @@ def find_tag_button_index(original_button=TagButton, updated_buttons=[TagButton]
 @admin.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title="🌈 aquabot")
+    default_image_url = "https://vignette.wikia.nocookie.net/justdance/images/8/8b/Alyssa_edwards_BYF_judging.gif"
+    image_url = default_image_url
+
+    api_instance = giphy_client.DefaultApi()
+    api_key = 'dc6zaTOxFJmzC'
+    tag = 'lgbtq'
+
+    try:
+        api_response = api_instance.gifs_random_get(api_key, tag=tag)
+        image_url = api_response.data.image_url
+    except ApiException as e:
+        print("Exception when calling DefaultApi->gifs_random_get: %s\n" % e)
+
+    return render_template('index.html', image_url=image_url)
 
 
 @admin.route('/fact/<fact_id>')
