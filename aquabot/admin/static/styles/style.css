@@ -146,8 +146,28 @@ a.tag-button:hover {
     font-weight:600;
 }
 
+.add-queer-fact-button {
+    color:#fff;
+    font-size:24px;
+    font-weight:600;
+    background-color:#ff0066;
+    border:0px solid;
+    border-color: #696 #363 #363 #696;
+}
+
 .text-bold {
     font-weight:600;
+}
+
+.index-header {
+    font-weight:600;
+    font-size:20px;
+    line-height:24px;
+    padding:10px 0;
+}
+
+.index-post {
+    padding:10px 0;
 }
 
 .slack-header {

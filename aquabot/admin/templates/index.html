@@ -3,9 +3,13 @@
 {% block content %}
 <div class="wrapper">
     <div class="container">
-        <h1 class="text-bold">Oh haaay, {{ current_user.username }}! Welcome to aquabot!</h1><br>
-        <div><img src="https://vignette.wikia.nocookie.net/justdance/images/8/8b/Alyssa_edwards_BYF_judging.gif" width="100%" /></div><br>
-        <p><a href="{{ url_for('.post_fact') }}">Post a new queer fact</a></p>
+        <div class="index-header">Oh haaay, {{ current_user.username }}! Welcome to aquabot!</div>
+        <div class="index-post">
+            <form>
+                <input type="button" class="add-queer-fact-button" value="🌈 Add a queer fact ✒️" onclick="window.location.href='{{ url_for('.post_fact') }}'" />
+            </form>
+        </div>
+        <div><img src="{{ image_url }}" width="100%" /></div><br>
     </div>
 </div>
 {% endblock %}
