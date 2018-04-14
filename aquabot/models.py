@@ -7,7 +7,7 @@ from . import config
 
 
 db = SQLAlchemy()
-migrate = Migrate(directory=config.databasedir)
+migrate = Migrate()
 login = LoginManager()
 
 
