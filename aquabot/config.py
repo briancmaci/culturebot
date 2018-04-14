@@ -1,5 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
+databasedir = os.environ.get('DATABASE_PATH') or \
+              os.path.join(basedir, "db")
 
 
 class Config(object):
@@ -10,7 +12,7 @@ class Config(object):
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(basedir, 'aquabot.db')
+                              'sqlite:///' + os.path.join(databasedir, 'aquabot.db')
 
 
 class ProductionConfig(Config):
