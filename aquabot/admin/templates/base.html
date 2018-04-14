@@ -9,19 +9,21 @@
       {% endif %}
     </head>
     <body>
-        <div style="height:10px; padding: 1% 0; margin-left:40px">
-            {% if current_user.username %}
-            🌈 aquabot admin | {{ current_user.username }}:
-            {% else %}
-            🌈 aquabot admin:
-            {% endif %}
-            <a href="{{ url_for('.index') }}">Home</a> &bull;
-            <a href="{{ url_for('.facts') }}">LGBTQ Facts</a> &bull;
-            {% if current_user.is_anonymous %}
-            <a href="{{ url_for('.login') }}">Login</a> &bull;
-            {% else %}
-            <a href="{{ url_for('.logout') }}">Logout</a>
-            {% endif %}
+        <div class="wrapper">
+            <div style="height:20px; padding: 1% 0;">
+                {% if current_user.username %}
+                🌈 aquabot admin | {{ current_user.username }}:
+                {% else %}
+                🌈 aquabot admin:
+                {% endif %}
+                <a href="{{ url_for('.index') }}">Home</a> &bull;
+                <a href="{{ url_for('.facts') }}">LGBTQ Facts</a> &bull;
+                {% if current_user.is_anonymous %}
+                <a href="{{ url_for('.login') }}">Login</a> &bull;
+                {% else %}
+                <a href="{{ url_for('.logout') }}">Logout</a>
+                {% endif %}
+            </div>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
