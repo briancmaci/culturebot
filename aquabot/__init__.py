@@ -1,6 +1,7 @@
 from flask import Flask
 from aquabot.admin import admin
 from aquabot.api import api
+from aquabot.slack import slack
 from aquabot.models import db, migrate, login
 
 
@@ -19,5 +20,6 @@ def create_app(config_object):
     # Register blueprints
     app.register_blueprint(admin, url_prefix='/admin')
     app.register_blueprint(api, url_prefix='/api')
+    app.register_blueprint(slack, url_prefix='/slack')
 
     return app

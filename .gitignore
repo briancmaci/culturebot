@@ -7,6 +7,7 @@ __pycache__/
 *$py.class
 
 # virtualenv
+slackbot/
 .venv/
 venv/
 ENV/
