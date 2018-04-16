@@ -20,6 +20,6 @@ def create_app(config_object):
     # Register blueprints
     app.register_blueprint(admin, url_prefix='/admin')
     app.register_blueprint(api, url_prefix='/api')
-    app.register_blueprint(slackbot, url_prefix='/slack')
+    app.register_blueprint(slackbot, url_prefix='/slackbot')
 
     return app
