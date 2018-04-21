@@ -15,7 +15,9 @@ def send_fact():
     slack_verification_token = "Qhw48BMuKNF7P96r6a0WA4ES"
     slack_client = SlackClient(slack_bot_token)
 
-    message = "Haaaayyy aaptiv! I am aquabot :tada:"
+    slack_client.api_call("auth.test")
+
+    message = "Haaaayyy aaptiv! I am aquabot :tada: You can see me!"
     slack_client.api_call("chat.postMessage", channel="#aaptiv-pride", text=message)
 
 
