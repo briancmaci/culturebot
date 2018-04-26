@@ -4,10 +4,8 @@ from .forms import LoginForm, RegistrationForm, PostFactForm
 from ..models import db, User, Post, AdditionalFact, TagButton
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
-import time
 import giphy_client
 from giphy_client.rest import ApiException
-from pprint import pprint
 
 
 def find_additional_fact_index(original_fact=AdditionalFact, updated_facts=[AdditionalFact]):

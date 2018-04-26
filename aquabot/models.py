@@ -44,6 +44,23 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.title)
 
+    def slack_serialize(self, facts, tags):
+        return {
+            'fallback': self.title,
+            'color': '#2eb886',
+            'thumb_url': self.image_url,
+            'image_url': self.image_url,
+            'pretext': self.header,
+            'title': self.title,
+            'title_link': self.title_url,
+            'text': self.body,
+            'fields': [af.slack_serialize() for af in facts],
+            'actions': [tb.slack_serialize() for tb in tags],
+            'footer': 'aquabot',
+            'footer_icon': 'https://cdn2.iconfinder.com/data/icons/special-waving-flags/512/LGBT-512.png',
+            'ts': str(datetime.now())
+        }
+
 
 class AdditionalFact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,6 +77,13 @@ class AdditionalFact(db.Model):
             'is_long' : self.is_long
         }
 
+    def slack_serialize(self):
+        return {
+            'title' : self.title,
+            'value' : self.text,
+            'short' : not self.is_long
+        }
+
 
 class TagButton(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -73,6 +97,14 @@ class TagButton(db.Model):
             'title' : self.title,
             'url' : self.url
         }
+
+    def slack_serialize(self):
+        return {
+            'type' : 'button',
+            'text' : self.title,
+            'url' : self.url
+        }
+
 
 @login.user_loader
 def load_user(id):
