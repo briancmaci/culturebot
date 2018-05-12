@@ -11,6 +11,7 @@ RUN pip install -r requirements.txt
 COPY . /app
 COPY run_aquabot.py /app
 
+#Commented out on server version (may need to comment out again)
 COPY ./aquabot/db/. /db
 
 ENV DATABASE_PATH /db
