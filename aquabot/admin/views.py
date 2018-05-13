@@ -216,13 +216,41 @@ def import_csv():
     form = ImportCSVFileForm()
 
     if form.validate_on_submit():
+        additional_fact_count = 3
+        tag_button_count = 3
+
         file = request.files[form.csv_file.name]
         stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
         csv_input = csv.DictReader(stream)
 
         for row in csv_input:
             if row['completed'] == 'TRUE':
-                flash(row.values())
+                post = Post(user_id=current_user.id,
+                            header=row['header'],
+                            title=row['title'],
+                            title_url=row['title_url'],
+                            image_url=row['image_url'],
+                            body=row['body'])
+                db.session.add(post)
+                db.session.flush()
+
+                for index in range(1, additional_fact_count + 1):
+                    if row['fact_title_' + str(index)] != None:
+                        additionalFact = AdditionalFact(post_id=post.id,
+                                                        title=row['fact_title_' + str(index)],
+                                                        text=row['fact_text_' + str(index)])
+                        db.session.add(additionalFact)
+
+                for index in range(1, tag_button_count + 1):
+                    if row['button_title_' + str(index)] != None:
+                        tagButton = TagButton(post_id=post.id,
+                                              title=row['button_title_' + str(index)],
+                                              url=row['button_url_' + str(index)])
+                        db.session.add(tagButton)
+
+                db.session.commit()
+
+        return redirect(url_for('.facts'))
 
     else:
         flash(form.errors)
