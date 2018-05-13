@@ -41,6 +41,14 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     shown = db.Column(db.Boolean, default=False)
 
+    def __init__(self, user_id: str, header: str, title: str, title_url: str, image_url: str, body: str):
+        self.user_id = user_id
+        self.header = header
+        self.title = title
+        self.title_url = title_url
+        self.image_url = image_url
+        self.body = body
+
     def __repr__(self):
         return '<Post {}>'.format(self.title)
 
@@ -69,6 +77,12 @@ class AdditionalFact(db.Model):
     is_long = db.Column(db.Boolean)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
+    def __init__(self, post_id: str, title: str, text: str, is_long: bool = True) -> object:
+        self.post_id = post_id
+        self.title = title
+        self.text = text
+        self.is_long = is_long
+
     def serialize(self):
         return {
             'id' : self.id,
@@ -90,6 +104,11 @@ class TagButton(db.Model):
     title = db.Column(db.String(140))
     url = db.Column(db.String(140))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+    def __init__(self, post_id: str, title: str, url: str):
+        self.post_id = post_id
+        self.title = title
+        self.url = url
 
     def serialize(self):
         return {

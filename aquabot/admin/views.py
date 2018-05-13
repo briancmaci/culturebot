@@ -180,30 +180,29 @@ def post_fact():
     form = PostFactForm()
 
     if form.validate_on_submit():
-        post = Post(user_id=current_user.id)
-        post.header = form.header.data
-        post.title = form.title.data
-        post.title_url = form.title_url.data
-        post.image_url = form.image_url.data
-        post.body = form.body.data
+        post = Post(user_id=current_user.id,
+                    header=form.header.data,
+                    title=form.title.data,
+                    title_url=form.title_url.data,
+                    image_url=form.image_url.data,
+                    body=form.body.data)
         db.session.add(post)
         db.session.flush()
 
         for fact in form.additional_facts.data:
-            additionalFact = AdditionalFact(post_id=post.id)
-            additionalFact.title = fact["title"]
-            additionalFact.text = fact["text"]
-            additionalFact.is_long = fact["is_long"]
+            additionalFact = AdditionalFact(post_id=post.id,
+                                            title=fact['title'],
+                                            text=fact['text'],
+                                            is_long=fact['is_long'])
             db.session.add(additionalFact)
 
         for tag in form.tag_buttons.data:
-            tagButton = TagButton(post_id=post.id)
-            tagButton.title = tag["title"]
-            tagButton.url = tag["url"]
+            tagButton = TagButton(post_id=post.id, title=tag['title'], url=tag['url'])
             db.session.add(tagButton)
 
 
         db.session.commit()
+        return redirect(url_for('.facts'))
 
     else:
         flash(form.errors)
@@ -222,7 +221,9 @@ def import_csv():
         csv_input = csv.DictReader(stream)
 
         for row in csv_input:
-            flash('\n '.join(row))
+            if row['completed'] == 'TRUE':
+                flash(row.values())
+
     else:
         flash(form.errors)
 
