@@ -1,11 +1,14 @@
 from flask import render_template, request, flash, redirect, url_for
 from . import admin
-from .forms import LoginForm, RegistrationForm, PostFactForm
+from .forms import LoginForm, RegistrationForm, PostFactForm, ImportCSVFileForm
 from ..models import db, User, Post, AdditionalFact, TagButton
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
+import csv
+import io
 import giphy_client
 from giphy_client.rest import ApiException
+import requests
 
 
 def find_additional_fact_index(original_fact=AdditionalFact, updated_facts=[AdditionalFact]):
@@ -177,36 +180,82 @@ def post_fact():
     form = PostFactForm()
 
     if form.validate_on_submit():
-        post = Post(user_id=current_user.id)
-        post.header = form.header.data
-        post.title = form.title.data
-        post.title_url = form.title_url.data
-        post.image_url = form.image_url.data
-        post.body = form.body.data
+        post = Post(user_id=current_user.id,
+                    header=form.header.data,
+                    title=form.title.data,
+                    title_url=form.title_url.data,
+                    image_url=form.image_url.data,
+                    body=form.body.data)
         db.session.add(post)
         db.session.flush()
 
         for fact in form.additional_facts.data:
-            additionalFact = AdditionalFact(post_id=post.id)
-            additionalFact.title = fact["title"]
-            additionalFact.text = fact["text"]
-            additionalFact.is_long = fact["is_long"]
+            additionalFact = AdditionalFact(post_id=post.id,
+                                            title=fact['title'],
+                                            text=fact['text'],
+                                            is_long=fact['is_long'])
             db.session.add(additionalFact)
 
         for tag in form.tag_buttons.data:
-            tagButton = TagButton(post_id=post.id)
-            tagButton.title = tag["title"]
-            tagButton.url = tag["url"]
+            tagButton = TagButton(post_id=post.id, title=tag['title'], url=tag['url'])
             db.session.add(tagButton)
 
 
         db.session.commit()
+        return redirect(url_for('.facts'))
 
     else:
         flash(form.errors)
 
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
 
+
+@admin.route('/import_csv', methods=['GET', 'POST'])
+@login_required
+def import_csv():
+    form = ImportCSVFileForm()
+
+    if form.validate_on_submit():
+        additional_fact_count = 3
+        tag_button_count = 3
+
+        file = request.files[form.csv_file.name]
+        stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+        csv_input = csv.DictReader(stream)
+
+        for row in csv_input:
+            if row['completed'] == 'TRUE':
+                post = Post(user_id=current_user.id,
+                            header=row['header'],
+                            title=row['title'],
+                            title_url=row['title_url'],
+                            image_url=row['image_url'],
+                            body=row['body'])
+                db.session.add(post)
+                db.session.flush()
+
+                for index in range(1, additional_fact_count + 1):
+                    if row['fact_title_' + str(index)] != None:
+                        additionalFact = AdditionalFact(post_id=post.id,
+                                                        title=row['fact_title_' + str(index)],
+                                                        text=row['fact_text_' + str(index)])
+                        db.session.add(additionalFact)
+
+                for index in range(1, tag_button_count + 1):
+                    if row['button_title_' + str(index)] != None:
+                        tagButton = TagButton(post_id=post.id,
+                                              title=row['button_title_' + str(index)],
+                                              url=row['button_url_' + str(index)])
+                        db.session.add(tagButton)
+
+                db.session.commit()
+
+        return redirect(url_for('.facts'))
+
+    else:
+        flash(form.errors)
+
+    return render_template('import_csv.html', title='aquabot | CSV Import', form=form)
 
 @admin.route('/logout')
 def logout():
