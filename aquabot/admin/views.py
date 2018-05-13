@@ -4,11 +4,11 @@ from .forms import LoginForm, RegistrationForm, PostFactForm, ImportCSVFileForm
 from ..models import db, User, Post, AdditionalFact, TagButton
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
-from werkzeug.utils import secure_filename
 import csv
 import io
 import giphy_client
 from giphy_client.rest import ApiException
+import requests
 
 
 def find_additional_fact_index(original_fact=AdditionalFact, updated_facts=[AdditionalFact]):

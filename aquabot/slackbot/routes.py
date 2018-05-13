@@ -1,6 +1,6 @@
 from . import slackbot
 from slackclient import SlackClient
-from flask import Response, jsonify
+from flask import Response, jsonify, render_template, flash
 from ..models import Post, AdditionalFact, TagButton
 
 import os
@@ -30,6 +30,6 @@ def send_fact(fact_id):
     response.status_code = 200
 
     slack_client.api_call("chat.postMessage", channel="#aaptiv-pride", text=message_text, attachments=message_attachments)
+    return 'OK'
 
-    return response
 
