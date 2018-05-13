@@ -1,9 +1,12 @@
 from flask import render_template, request, flash, redirect, url_for
 from . import admin
-from .forms import LoginForm, RegistrationForm, PostFactForm
+from .forms import LoginForm, RegistrationForm, PostFactForm, ImportCSVFileForm
 from ..models import db, User, Post, AdditionalFact, TagButton
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
+import csv
+import io
 import giphy_client
 from giphy_client.rest import ApiException
 
@@ -207,6 +210,23 @@ def post_fact():
 
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
 
+
+@admin.route('/import_csv', methods=['GET', 'POST'])
+@login_required
+def import_csv():
+    form = ImportCSVFileForm()
+
+    if form.validate_on_submit():
+        file = request.files[form.csv_file.name]
+        stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+        csv_input = csv.DictReader(stream)
+
+        for row in csv_input:
+            flash('\n '.join(row))
+    else:
+        flash(form.errors)
+
+    return render_template('import_csv.html', title='aquabot | CSV Import', form=form)
 
 @admin.route('/logout')
 def logout():

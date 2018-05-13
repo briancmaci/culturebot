@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="container">
+        <h1>LGBTQ Facts | CSV Import</h1>
+        <form id="import-csv-form" action="" method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.csv_file.label }} {{ form.csv_file(size=200) }}<br>
+                {% for error in form.csv_file.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

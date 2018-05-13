@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm, Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FormField, FieldList, TextAreaField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FormField, FieldList, TextAreaField, IntegerField, FileField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, URL
 from wtforms.widgets import HiddenInput
 from aquabot.models import User
@@ -52,5 +52,10 @@ class PostFactForm(FlaskForm):
     additional_facts = FieldList(FormField(AdditionalFactEntryForm), min_entries=1)
     tag_buttons = FieldList(FormField(TagButtonEntryForm), min_entries=1)
     submit = SubmitField('Post LGBTQ fact')
+
+
+class ImportCSVFileForm(FlaskForm):
+    csv_file = FileField('CSV File')
+    submit = SubmitField('Import LGBTQ facts')
 
 
