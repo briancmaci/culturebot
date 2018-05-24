@@ -21,15 +21,16 @@ def send_fact(fact_id):
     additional_facts_list = AdditionalFact.query.filter_by(post_id=fact.id).all()
     tag_buttons_list = TagButton.query.filter_by(post_id=fact.id).all()
 
-    message_text = ":rainbow:AQuA :heart: Aaptiv"
+    message_text = ":aqua:Aqua :trans_heart: Aaptiv"
     message_attachments = [fact.slack_serialize(additional_facts_list, tag_buttons_list)]
     slack_bot_token = os.environ["SLACK_API_TOKEN"]
+    slack_channel = os.environ["SLACK_CHANNEL"]
     slack_client = SlackClient(slack_bot_token)
 
     response = jsonify(message_attachments)
     response.status_code = 200
 
-    slack_client.api_call("chat.postMessage", channel="#aaptiv-pride", text=message_text, attachments=message_attachments)
+    slack_client.api_call("chat.postMessage", channel=slack_channel, text=message_text, attachments=message_attachments)
     return 'OK'
 
 
