@@ -1,3 +1,5 @@
+from typing import List
+
 from . import slackbot
 from slackclient import SlackClient
 from flask import Response, jsonify, render_template, flash
@@ -6,7 +8,7 @@ from ..models import Post, AdditionalFact, TagButton
 import os
 
 
-colors = ["#e70000", "#ff8c00", "#ffef00", "#00811f", "#0044ff", "#760089"]
+colors: List[str] = ['#e70000', '#ff8c00', '#ffef00', '#00811f', '#0044ff', '#760089']
 
 @slackbot.route('/sendfact/<fact_id>', methods=['GET'])
 def send_fact(fact_id):
