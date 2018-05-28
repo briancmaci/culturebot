@@ -115,6 +115,19 @@ def edit_fact(fact_id):
 
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
 
+
+@admin.route('/fact/reset/<fact_id>')
+@login_required
+def reset_fact(fact_id):
+    fact = Post.query.filter_by(id=fact_id).first()
+    if fact is None:
+        flash('Fact not found')
+
+    fact.shown = False
+    db.session.commit()
+    return redirect(url_for('.facts'))
+
+
 @admin.route('/facts')
 @login_required
 def facts():

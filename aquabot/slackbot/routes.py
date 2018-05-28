@@ -3,7 +3,7 @@ from typing import List
 from . import slackbot
 from slackclient import SlackClient
 from flask import Response, jsonify, render_template, flash
-from ..models import Post, AdditionalFact, TagButton
+from ..models import db, Post, AdditionalFact, TagButton
 
 import os
 
@@ -32,6 +32,9 @@ def send_fact(fact_id):
     response.status_code = 200
 
     slack_client.api_call("chat.postMessage", channel=slack_channel, text=message_text, attachments=message_attachments)
+
+    fact.shown = True
+    db.session.commit()
     return 'OK'
 
 def get_color(offset):
