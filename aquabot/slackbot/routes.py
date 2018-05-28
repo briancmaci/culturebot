@@ -7,9 +7,6 @@ from ..models import Post, AdditionalFact, TagButton
 
 import os
 
-
-colors: List[str] = ['#e70000', '#ff8c00', '#ffef00', '#00811f', '#0044ff', '#760089']
-
 @slackbot.route('/sendfact/<fact_id>', methods=['GET'])
 def send_fact(fact_id):
     fact = Post.query.filter_by(id=fact_id).first()
@@ -38,6 +35,8 @@ def send_fact(fact_id):
     return 'OK'
 
 def get_color(offset):
-    return colors[offset % len(colors)]
+    colors: List[str] = ['#e70000', '#ff8c00', '#ffef00', '#00811f', '#0044ff', '#760089']
+    color_index = int(offset) % len(colors)
+    return colors[color_index]
 
 
