@@ -36,6 +36,6 @@ def send_fact(fact_id):
     return 'OK'
 
 def get_color(offset):
-    return colors[offset % colors.count]
+    return colors[offset % len(colors)]
 
 
