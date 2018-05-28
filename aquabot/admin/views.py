@@ -88,22 +88,11 @@ def edit_fact(fact_id):
 
         # Remove/update old additional facts
         for of in original_additional_facts:
-            found_fact_index = find_additional_fact_index(of, updated_additional_facts)
-            print("FOUND FACT INDEX: ", found_fact_index)
-            if found_fact_index == -1:
-                db.session.delete(of)
-            else:
-                of.text = updated_additional_facts[found_fact_index]["text"]
-                of.title = updated_additional_facts[found_fact_index]["title"]
-                of.is_long = updated_additional_facts[found_fact_index]["is_long"]
-                del updated_additional_facts[found_fact_index]
+            db.session.delete(of)
 
         # Add new additional facts
         for af in updated_additional_facts:
-            additionalFact = AdditionalFact(post_id=fact.id)
-            additionalFact.title = af["title"]
-            additionalFact.text = af["text"]
-            additionalFact.is_long = af["is_long"]
+            additionalFact = AdditionalFact(post_id=fact.id, title=af['title'], text=af['text'], is_long=af['is_long'])
             db.session.add(additionalFact)
 
         original_tag_buttons = TagButton.query.filter_by(post_id=fact.id).all()
@@ -111,19 +100,11 @@ def edit_fact(fact_id):
 
         # Remove/update old tag buttons
         for ob in original_tag_buttons:
-            found_button_index = find_tag_button_index(ob, updated_tag_buttons)
-            if found_button_index == -1:
-                db.session.delete(ob)
-            else:
-                ob.title = updated_tag_buttons[found_button_index]["title"]
-                ob.url = updated_tag_buttons[found_button_index]["url"]
-                del updated_tag_buttons[found_button_index]
+            db.session.delete(ob)
 
         # Add new tag buttons
         for tag in updated_tag_buttons:
-            tagButton = TagButton(post_id=fact.id)
-            tagButton.title = tag["title"]
-            tagButton.url = tag["url"]
+            tagButton = TagButton(post_id=fact.id, title=tag['title'], url=tag['url'])
             db.session.add(tagButton)
 
         db.session.commit()
@@ -133,6 +114,19 @@ def edit_fact(fact_id):
         flash(form.errors)
 
     return render_template('post_fact.html', title='Post an LGBTQ Fact', form=form)
+
+
+@admin.route('/fact/reset/<fact_id>')
+@login_required
+def reset_fact(fact_id):
+    fact = Post.query.filter_by(id=fact_id).first()
+    if fact is None:
+        flash('Fact not found')
+
+    fact.shown = False
+    db.session.commit()
+    return redirect(url_for('.facts'))
+
 
 @admin.route('/facts')
 @login_required

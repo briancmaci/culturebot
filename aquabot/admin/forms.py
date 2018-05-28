@@ -47,7 +47,7 @@ class PostFactForm(FlaskForm):
     header = StringField('Header', validators=[DataRequired()])
     image_url = StringField('Image Url', validators=[URL(require_tld=False, message="Invalid Image Url")])
     title = StringField('Main Title', validators=[DataRequired()])
-    title_url = StringField('Main Title Url', validators=[URL(require_tld=False, message="Invalid Url")])
+    title_url = StringField('Main Title Url')
     body = TextAreaField('Body', validators=[DataRequired()])
     additional_facts = FieldList(FormField(AdditionalFactEntryForm), min_entries=1)
     tag_buttons = FieldList(FormField(TagButtonEntryForm), min_entries=1)
