@@ -36,7 +36,7 @@ def send_fact(fact_id):
 
 def get_color(offset):
     colors: List[str] = ['#e70000', '#ff8c00', '#ffef00', '#00811f', '#0044ff', '#760089']
-    color_index = int(offset) % len(colors)
+    color_index = int(offset) % len(colors) - 1
     return colors[color_index]
 
 
