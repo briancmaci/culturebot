@@ -22,7 +22,7 @@ def send_fact(fact_id):
     additional_facts_list = AdditionalFact.query.filter_by(post_id=fact.id).all()
     tag_buttons_list = TagButton.query.filter_by(post_id=fact.id).all()
 
-    message_text = "Aqua :trans_heart: Aaptiv"
+    message_text = "Aqua:robot_face: :trans_heart: Aaptiv"
     message_attachments = [fact.slack_serialize(get_color(fact_id), additional_facts_list, tag_buttons_list)]
     slack_bot_token = os.environ["SLACK_API_TOKEN"]
     slack_channel = "#aquabot_test"
