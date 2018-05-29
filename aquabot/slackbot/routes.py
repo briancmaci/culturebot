@@ -25,16 +25,13 @@ def send_fact(fact_id):
     message_text = "Aqua :trans_heart: Aaptiv"
     message_attachments = [fact.slack_serialize(get_color(fact_id), additional_facts_list, tag_buttons_list)]
     slack_bot_token = os.environ["SLACK_API_TOKEN"]
-    slack_channel = os.environ["SLACK_CHANNEL"]
+    slack_channel = "#aquabot_test"
     slack_client = SlackClient(slack_bot_token)
 
     response = jsonify(message_attachments)
     response.status_code = 200
 
     slack_client.api_call("chat.postMessage", channel=slack_channel, text=message_text, attachments=message_attachments)
-
-    fact.shown = True
-    db.session.commit()
     return 'OK'
 
 
