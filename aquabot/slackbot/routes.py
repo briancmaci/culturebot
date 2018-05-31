@@ -7,6 +7,8 @@ from ..models import db, Post, AdditionalFact, TagButton
 
 import os
 
+slack_message_text = "*Aqua* :pride_heart: Aaptiv"
+
 @slackbot.route('/sendfact/<fact_id>', methods=['GET'])
 def send_fact(fact_id):
     fact = Post.query.filter_by(id=fact_id).first()
@@ -22,10 +24,10 @@ def send_fact(fact_id):
     additional_facts_list = AdditionalFact.query.filter_by(post_id=fact.id).all()
     tag_buttons_list = TagButton.query.filter_by(post_id=fact.id).all()
 
-    message_text = "Aqua:robot_face: :trans_heart: Aaptiv"
+    message_text = slack_message_text
     message_attachments = [fact.slack_serialize(get_color(fact_id), additional_facts_list, tag_buttons_list)]
     slack_bot_token = os.environ["SLACK_API_TOKEN"]
-    slack_channel = "#aquabot_test"
+    slack_channel = "#andrew-brian"
     slack_client = SlackClient(slack_bot_token)
 
     response = jsonify(message_attachments)
@@ -51,7 +53,7 @@ def send_next_fact():
     additional_facts_list = AdditionalFact.query.filter_by(post_id=fact.id).all()
     tag_buttons_list = TagButton.query.filter_by(post_id=fact.id).all()
 
-    message_text = "Aqua :trans_heart: Aaptiv"
+    message_text = slack_message_text
     message_attachments = [fact.slack_serialize(get_color(shown_index), additional_facts_list, tag_buttons_list)]
     slack_bot_token = os.environ["SLACK_API_TOKEN"]
     slack_channel = os.environ["SLACK_CHANNEL"]

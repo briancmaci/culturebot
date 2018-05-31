@@ -18,6 +18,7 @@
                 {% endif %}
                 <a href="{{ url_for('.index') }}">Home</a> &bull;
                 <a href="{{ url_for('.facts') }}">LGBTQ Facts</a> &bull;
+                <a href="{{ url_for('.import_csv') }}">Import CSV</a> &bull;
                 {% if current_user.is_anonymous %}
                 <a href="{{ url_for('.login') }}">Login</a> &bull;
                 {% else %}
