@@ -1,86 +1,99 @@
 <!DOC{% extends "base.html" %}
 
 {% block content %}
-    <h1>LGBTQ Fact | Post</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.header.label }}<br>
-            {{ form.header(size=48) }}<br>
-            {% for error in form.header.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.image_url.label }}<br>
-            {{ form.image_url(size=48) }}<br>
-            {% for error in form.image_url.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.title.label }}<br>
-            {{ form.title(size=48) }}<br>
-            {% for error in form.title.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.title_url.label }}<br>
-            {{ form.title_url(size=48) }}<br>
-            {% for error in form.title_url.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.body.label }}<br>
-            {{ form.body(cols=48, rows=4) }}<br>
-            {% for error in form.body.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <div data-toggle="fieldset" id="additional-fact-fieldset">
-            {{ form.additional_facts.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#additional-fact-fieldset">+</button>
-            {{ form.hidden_tag() }}
-            <table>
-                <tr>
-                    <th>Title</th>
-                    <th>Text</th>
-                    <th>Spans the row</th>
-                    <th></th>
-                </tr>
-                {% for fact in form.additional_facts %}
-                <tr data-toggle="fieldset-entry">
-                    <td>{{ fact.title }}</td>
-                    <td>{{ fact.text }}</td>
-                    <td>{{ fact.is_long }}</td>
-                    <td><button type="button" data-toggle="fieldset-remove-row" id="additional-fact-{{loop.index0}}-remove">-</button></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div data-toggle="fieldset" id="tag-button-fieldset">
-            {{ form.tag_buttons.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#tag-button-fieldset">+</button>
-            {{ form.hidden_tag() }}
-            <table>
-                <tr>
-                    <th>Title</th>
-                    <th>Url</th>
-                    <th></th>
-                </tr>
-                {% for tag in form.tag_buttons %}
-                <tr data-toggle="fieldset-entry">
-                    <td>{{ tag.title }}</td>
-                    <td>{{ tag.url }}</td>
-                    <td><button type="button" data-toggle="fieldset-remove-row" id="tag-button-{{loop.index0}}-remove">-</button></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <p>{{ form.submit() }}</p>
-    </form>
+<div class="wrapper">
+        <div class="container">
+            <h1>LGBTQ Fact | Post</h1>
+            <form id="post-fact-form" action="" method="post">
+                {{ form.hidden_tag() }}
+                <div>
+                    {{ form.header.label }}<br>
+                    {{ form.header(size=60) }}<br>
+                    {% for error in form.header.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.image_url.label }}<br>
+                    {{ form.image_url(size=60) }}<br>
+                    {% for error in form.image_url.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.title.label }}<br>
+                    {{ form.title(size=60) }}<br>
+                    {% for error in form.title.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.title_url.label }}<br>
+                    {{ form.title_url(size=60) }}<br>
+                    {% for error in form.title_url.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.body.label }}<br>
+                    {{ form.body(cols=60, rows=4) }}<br>
+                    {% for error in form.body.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div data-toggle="fieldset" id="additional-fact-fieldset">
+                    {{ form.additional_facts.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#additional-fact-fieldset">+</button>
+                    {{ form.hidden_tag() }}
+                    <table>
+                        <tr>
+                            <th>Title</th>
+                            <th>Text</th>
+                            <th>Spans the row</th>
+                            <th></th>
+                        </tr>
+                        {% for fact in form.additional_facts %}
+                        <tr data-toggle="fieldset-entry">
+                            <td>{{ fact.title }}</td>
+                            <td>{{ fact.text }}</td>
+                            <td>{{ fact.is_long }}</td>
+                            <td><button type="button" data-toggle="fieldset-remove-row" id="additional-fact-{{loop.index0}}-remove">-</button></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div data-toggle="fieldset" id="tag-button-fieldset">
+                    {{ form.tag_buttons.label }} <button type="button" data-toggle="fieldset-add-row" data-target="#tag-button-fieldset">+</button>
+                    {{ form.hidden_tag() }}
+                    <table>
+                        <tr>
+                            <th>Title</th>
+                            <th>Url</th>
+                            <th></th>
+                        </tr>
+                        {% for tag in form.tag_buttons %}
+                        <tr data-toggle="fieldset-entry">
+                            <td>{{ tag.title }}</td>
+                            <td>{{ tag.url }}</td>
+                            <td><button type="button" data-toggle="fieldset-remove-row" id="tag-button-{{loop.index0}}-remove">-</button></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <p>{{ form.submit() }}</p>
+            </form>
+        </div></div>
 
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="{{ url_for('.static', filename='js/page.js') }}"></script>
+
+    <script>
+        $("#post-fact-form").on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13 && !$(document.activeElement).is('textarea')) {
+              e.preventDefault();
+              return false;
+            }
+        });
+    </script>
 
 {% endblock %}

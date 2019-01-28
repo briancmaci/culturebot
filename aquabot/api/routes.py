@@ -1,9 +1,7 @@
 from flask import Response, json, jsonify
 from . import api
 
-from ..models import db, User, Post, AdditionalFact, TagButton
-from flask_login import current_user, login_user, login_required, logout_user
-from werkzeug.urls import url_parse
+from ..models import Post, AdditionalFact, TagButton
 
 
 # @api.route('/facts', methods=['GET'])

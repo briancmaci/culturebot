@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm, Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FormField, FieldList, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FormField, FieldList, TextAreaField, IntegerField, FileField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, URL
+from wtforms.widgets import HiddenInput
 from aquabot.models import User
 
 
@@ -33,21 +34,28 @@ class AdditionalFactEntryForm(Form):
     title = StringField('Title', validators=[DataRequired()])
     text = TextAreaField('Text', validators=[DataRequired()])
     is_long = BooleanField('This should span the entire post')
+    id = IntegerField(widget=HiddenInput())
 
 
 class TagButtonEntryForm(Form):
     title = StringField('Title', validators=[DataRequired()])
     url = StringField('Url', validators=[DataRequired(), URL(require_tld=False, message="Invalid Url")])
+    id = IntegerField(widget=HiddenInput())
 
 
 class PostFactForm(FlaskForm):
     header = StringField('Header', validators=[DataRequired()])
     image_url = StringField('Image Url', validators=[URL(require_tld=False, message="Invalid Image Url")])
     title = StringField('Main Title', validators=[DataRequired()])
-    title_url = StringField('Main Title Url', validators=[URL(require_tld=False, message="Invalid Url")])
+    title_url = StringField('Main Title Url')
     body = TextAreaField('Body', validators=[DataRequired()])
     additional_facts = FieldList(FormField(AdditionalFactEntryForm), min_entries=1)
     tag_buttons = FieldList(FormField(TagButtonEntryForm), min_entries=1)
-    submit = SubmitField('Post LGBTQ Fact')
+    submit = SubmitField('Post LGBTQ fact')
+
+
+class ImportCSVFileForm(FlaskForm):
+    csv_file = FileField('CSV File')
+    submit = SubmitField('Import LGBTQ facts')
 
 

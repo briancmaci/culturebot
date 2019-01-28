@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>aquabot | {{ current_user.username }}</h1>
-    <p><a href="{{ url_for('.post_fact') }}">Post a new queer fact</a></p>
+<div class="wrapper">
+    <div class="container">
+        <div class="index-header">Oh haaay, {{ current_user.username }}! Welcome to aquabot!</div>
+        <div class="index-post">
+            <form>
+                <input type="button" class="add-queer-fact-button" value="🌈 Add a queer fact ✒️" onclick="window.location.href='{{ url_for('.post_fact') }}'" />
+            </form>
+        </div>
+        <div><img src="{{ image_url }}" width="100%" /></div><br>
+    </div>
+</div>
 {% endblock %}

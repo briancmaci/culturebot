@@ -6,7 +6,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# local configs and assets
+_assets/
+_config/
+
 # virtualenv
+slackbot/
 .venv/
 venv/
 ENV/
