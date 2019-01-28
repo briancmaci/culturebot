@@ -1,5 +1,5 @@
-from aquabot import create_app, config
-from aquabot.models import db, User
+from culturebot import create_app, config
+from culturebot.models import db, User
 
 
 app = create_app(config.DevelopmentConfig)

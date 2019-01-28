@@ -4,9 +4,6 @@ from . import api
 from ..models import Post, AdditionalFact, TagButton
 
 
-# @api.route('/facts', methods=['GET'])
-# def get_facts():
-
 @api.route('/fact/<fact_id>', methods=['GET'])
 def get_fact(fact_id):
     fact = Post.query.filter_by(id=fact_id).first()

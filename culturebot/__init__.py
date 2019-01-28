@@ -1,8 +1,8 @@
 from flask import Flask
-from aquabot.admin import admin
-from aquabot.api import api
-from aquabot.slackbot import slackbot
-from aquabot.models import db, migrate, login
+from culturebot.admin import admin
+from culturebot.api import api
+from culturebot.slackbot import slackbot
+from culturebot.models import db, migrate, login
 
 
 def create_app(config_object):
