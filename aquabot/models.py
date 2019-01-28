@@ -39,7 +39,6 @@ class Post(db.Model):
     additional_facts = db.relationship('AdditionalFact', backref='author', lazy='dynamic')
     tag_buttons = db.relationship('TagButton', backref='author', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    shown = db.Column(db.Boolean, default=False)
 
     def __init__(self, user_id: str, header: str, title: str, title_url: str, image_url: str, body: str):
         self.user_id = user_id
@@ -50,7 +49,7 @@ class Post(db.Model):
         self.body = body
 
     def __repr__(self):
-        return '<Post {}>'.format(self.title)
+        return '<Post {}>'.format(self.body)
 
     def slack_serialize(self, color, facts, tags):
         return {
