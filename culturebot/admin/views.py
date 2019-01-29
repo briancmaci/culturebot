@@ -132,7 +132,7 @@ def reset_fact(fact_id):
 @login_required
 def facts():
     facts = Post.query.all()
-    return render_template('facts.html', title="culturebot | Enriching Shareworthy Facts", facts=facts)
+    return render_template('facts.html', title="culturebot | Enriching, Shareworthy Facts", facts=facts)
 
 
 @admin.route('/login', methods=['GET', 'POST'])
