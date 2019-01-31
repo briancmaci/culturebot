@@ -64,7 +64,7 @@ class Post(db.Model):
             'fields': [af.slack_serialize() for af in facts],
             'actions': [tb.slack_serialize() for tb in tags],
             'footer': 'culturebot',
-            'footer_icon': 'http://s3.amazonaws.com/skyfit-hls/aqua_slack.png'
+            'footer_icon': 'http://s3.amazonaws.com/skyfit-hls/blaf_slack.png'
         }
 
 
