@@ -3,21 +3,21 @@
     <head>
         <link rel="stylesheet" type="text/css" href="{{ url_for('.static', filename='styles/style.css') }}">
       {% if title %}
-      <title>aquabot|admin - {{ title }}</title>
+      <title>culturebot|admin - {{ title }}</title>
       {% else %}
-      <title>aquabot. haaay.</title>
+      <title>culturebot. haaay.</title>
       {% endif %}
     </head>
     <body>
         <div class="wrapper">
             <div style="height:20px; padding: 1% 0;">
                 {% if current_user.username %}
-                🌈 aquabot admin | {{ current_user.username }}:
+                🌈 culturebot admin | {{ current_user.username }}:
                 {% else %}
-                🌈 aquabot admin:
+                🌈 culturebot admin:
                 {% endif %}
                 <a href="{{ url_for('.index') }}">Home</a> &bull;
-                <a href="{{ url_for('.facts') }}">LGBTQ Facts</a> &bull;
+                <a href="{{ url_for('.facts') }}">Shareworthy Facts</a> &bull;
                 <a href="{{ url_for('.import_csv') }}">Import CSV</a> &bull;
                 {% if current_user.is_anonymous %}
                 <a href="{{ url_for('.login') }}">Login</a> &bull;
