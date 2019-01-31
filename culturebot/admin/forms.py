@@ -51,11 +51,11 @@ class PostFactForm(FlaskForm):
     body = TextAreaField('Body', validators=[DataRequired()])
     additional_facts = FieldList(FormField(AdditionalFactEntryForm), min_entries=1)
     tag_buttons = FieldList(FormField(TagButtonEntryForm), min_entries=1)
-    submit = SubmitField('Post LGBTQ fact')
+    submit = SubmitField('Post cultural fact')
 
 
 class ImportCSVFileForm(FlaskForm):
     csv_file = FileField('CSV File')
-    submit = SubmitField('Import LGBTQ facts')
+    submit = SubmitField('Import cultural facts')
 
 
