@@ -7,7 +7,7 @@ from ..models import db, Post, AdditionalFact, TagButton
 
 import os
 
-slack_message_text = "*BLAF* :blue_heart: Aaptiv"
+slack_message_text = ""
 
 @slackbot.route('/sendfact/<fact_id>', methods=['GET'])
 def send_fact(fact_id):
